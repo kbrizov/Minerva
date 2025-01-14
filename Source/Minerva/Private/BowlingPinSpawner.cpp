@@ -28,7 +28,7 @@ void ABowlingPinSpawner::SpawnBowlingPins()
 	}
 
 	UWorld* World = GetWorld();
-	constexpr float SpaceBetweenPins = 100.0f;
+	constexpr float SpaceBetweenPins = 30.48; // The standard space between pins in cm.
 	constexpr int Rows = 4;
 
 	for (int32 Row = 0; Row < Rows; ++Row)
