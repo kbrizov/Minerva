@@ -16,5 +16,8 @@ public:
 
 private:
 	UPROPERTY(EditDefaultsOnly)
+	TObjectPtr<USceneComponent> Pivot;
+
+	UPROPERTY(EditDefaultsOnly)
 	TObjectPtr<UStaticMeshComponent> Mesh;
 };
