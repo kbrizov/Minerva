@@ -1,26 +1,26 @@
 // Christian Rizov's Minerva
 
-#include "BowlingPinSpawner.h"
+#include "BowlingPinFormation.h"
 #include "BowlingPin.h"
 
-ABowlingPinSpawner::ABowlingPinSpawner()
+ABowlingPinFormation::ABowlingPinFormation()
 {
 	PrimaryActorTick.bCanEverTick = false;
 }
 
-void ABowlingPinSpawner::BeginPlay()
+void ABowlingPinFormation::BeginPlay()
 {
 	Super::BeginPlay();
 	SpawnBowlingPins();
 }
 
-void ABowlingPinSpawner::EndPlay(const EEndPlayReason::Type EndPlayReason)
+void ABowlingPinFormation::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
 	DespawnBowlingPins();
 	Super::EndPlay(EndPlayReason);
 }
 
-void ABowlingPinSpawner::SpawnBowlingPins()
+void ABowlingPinFormation::SpawnBowlingPins()
 {
 	if (!ensure(BowlingPinClass))
 	{
@@ -48,7 +48,7 @@ void ABowlingPinSpawner::SpawnBowlingPins()
 	}
 }
 
-void ABowlingPinSpawner::DespawnBowlingPins()
+void ABowlingPinFormation::DespawnBowlingPins()
 {
 	for (ABowlingPin* BowlingPin : BowlingPins)
 	{

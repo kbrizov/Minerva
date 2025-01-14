@@ -4,17 +4,17 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "BowlingPinSpawner.generated.h"
+#include "BowlingPinFormation.generated.h"
 
 class ABowlingPin;
 
 UCLASS(Abstract)
-class MINERVA_API ABowlingPinSpawner : public AActor
+class MINERVA_API ABowlingPinFormation : public AActor
 {
 	GENERATED_BODY()
 
 public:
-	ABowlingPinSpawner();
+	ABowlingPinFormation();
 
 protected:
 	virtual void BeginPlay() override;
