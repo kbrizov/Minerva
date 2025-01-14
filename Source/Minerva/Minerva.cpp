@@ -1,4 +1,4 @@
-// Copyright Epic Games, Inc. All Rights Reserved.
+// Christian Rizov's Minerva.
 
 #include "Minerva.h"
 #include "Modules/ModuleManager.h"
