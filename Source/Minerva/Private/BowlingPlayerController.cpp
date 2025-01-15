@@ -1,9 +1,34 @@
 // Christian Rizov's Minerva
 
 #include "BowlingPlayerController.h"
+#include "EnhancedInputSubsystems.h"
 #include "BowlingBall.h"
 #include "Engine/TargetPoint.h"
 #include "Kismet/GameplayStatics.h"
+
+void ABowlingPlayerController::AddInputMappingContext(const UInputMappingContext* MappingContext, int32 Priority, const FModifyContextOptions& Options)
+{
+	if (IEnhancedInputSubsystemInterface* Subsystem = GetEnhancedInputSubsystem())
+	{
+		Subsystem->AddMappingContext(MappingContext, Priority, Options);
+	}
+}
+
+void ABowlingPlayerController::RemoveInputMappingContext(const UInputMappingContext* MappingContext, const FModifyContextOptions& Options)
+{
+	if (IEnhancedInputSubsystemInterface* Subsystem = GetEnhancedInputSubsystem())
+	{
+		Subsystem->RemoveMappingContext(MappingContext, Options);
+	}
+}
+
+void ABowlingPlayerController::ClearAllInputMappingContexts()
+{
+	if (IEnhancedInputSubsystemInterface* Subsystem = GetEnhancedInputSubsystem())
+	{
+		Subsystem->ClearAllMappings();
+	}
+}
 
 void ABowlingPlayerController::BeginPlay()
 {
@@ -18,6 +43,29 @@ void ABowlingPlayerController::EndPlay(const EEndPlayReason::Type EndPlayReason)
 	BowlingBallStartLocation = nullptr;
 	Super::EndPlay(EndPlayReason);
 }
+
+void ABowlingPlayerController::OnMoveBowlingBall(FVector MovementInput)
+{
+	if(!ensure(BowlingBall))
+	{
+		return;
+	}
+
+	const FVector CurrentLocation = BowlingBall->GetActorLocation();
+	const FVector NewLocation = CurrentLocation + MovementInput;
+	BowlingBall->SetActorLocation(NewLocation);
+}
+
+void ABowlingPlayerController::OnThrowBowlingBall(bool bValue)
+{
+	if(!ensure(BowlingBall))
+	{
+		return;
+	}
+
+	BowlingBall->Launch(5000);
+}
+
 
 void ABowlingPlayerController::SpawnBowlingBall()
 {
@@ -37,6 +85,7 @@ void ABowlingPlayerController::SpawnBowlingBall()
 	BowlingBall = World->SpawnActor<ABowlingBall>(BowlingBallClass, BowlingBallLocation, BowlingBallRotation);
 	check(BowlingBall);
 	BowlingBall->SetFlags(RF_Transient);
+	BowlingBall->SetEnableGravity(false);
 }
 
 void ABowlingPlayerController::DespawnBowlingBall()
@@ -66,4 +115,14 @@ TObjectPtr<ATargetPoint> ABowlingPlayerController::FindBowlingBallStartLocation(
 	}
 
 	return StaticCast<ATargetPoint*>(OutTargetPoints[0]);
+}
+
+UEnhancedInputLocalPlayerSubsystem* ABowlingPlayerController::GetEnhancedInputSubsystem() const
+{
+	if (const ULocalPlayer* LocalPlayer = GetLocalPlayer())
+	{
+		return LocalPlayer->GetSubsystem<UEnhancedInputLocalPlayerSubsystem>();
+	}
+
+	return nullptr;
 }

@@ -15,14 +15,10 @@ class MINERVA_API ABowlingBall : public AActor
 
 public:
 	ABowlingBall();
-	void Launch();
+	void Launch(float Force);
+	void SetEnableGravity(bool bEnableGravity);
 
 private:
 	UPROPERTY(EditDefaultsOnly)
 	TObjectPtr<UStaticMeshComponent> Mesh;
-
-	UPROPERTY(EditDefaultsOnly)
-	UProjectileMovementComponent* MovementComponent;
-
-	void EnableMovement(bool bValue);
 };

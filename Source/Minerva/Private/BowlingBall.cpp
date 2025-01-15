@@ -1,7 +1,6 @@
 // Christian Rizov's Minerva
 
 #include "BowlingBall.h"
-#include "GameFramework/ProjectileMovementComponent.h"
 
 ABowlingBall::ABowlingBall()
 {
@@ -9,28 +8,21 @@ ABowlingBall::ABowlingBall()
 
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 	check(Mesh);
+	Mesh->SetSimulatePhysics(true);
+	Mesh->SetEnableGravity(true);
 	RootComponent = Mesh;
-
-	MovementComponent = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("MovementComponent"));
-	check(MovementComponent);
-	MovementComponent->SetAutoActivate(false);
-	MovementComponent->UpdatedComponent = RootComponent;
-
-	EnableMovement(false);
 }
 
-void ABowlingBall::Launch()
+void ABowlingBall::Launch(float Force)
 {
-	EnableMovement(true);
-}
-
-void ABowlingBall::EnableMovement(bool bValue)
-{
-	check(MovementComponent);
-	MovementComponent->SetActive(bValue);
-
 	check(Mesh);
-	Mesh->SetSimulatePhysics(bValue);
-	Mesh->SetEnableGravity(bValue);
+	Mesh->SetEnableGravity(true);
+	const FVector Impulse = GetActorForwardVector() * Force;
+	Mesh->AddImpulse(Impulse);
 }
 
+void ABowlingBall::SetEnableGravity(bool bEnableGravity)
+{
+	check(Mesh);
+	Mesh->SetEnableGravity(bEnableGravity);
+}
