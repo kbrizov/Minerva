@@ -13,6 +13,24 @@ ABowlingBall::ABowlingBall()
 
 	MovementComponent = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("MovementComponent"));
 	check(MovementComponent);
+	MovementComponent->SetAutoActivate(false);
 	MovementComponent->UpdatedComponent = RootComponent;
+
+	EnableMovement(false);
+}
+
+void ABowlingBall::Launch()
+{
+	EnableMovement(true);
+}
+
+void ABowlingBall::EnableMovement(bool bValue)
+{
+	check(MovementComponent);
+	MovementComponent->SetActive(bValue);
+
+	check(Mesh);
+	Mesh->SetSimulatePhysics(bValue);
+	Mesh->SetEnableGravity(bValue);
 }
 

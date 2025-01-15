@@ -59,7 +59,7 @@ void ABowlingPinFormation::SpawnBowlingPins()
 			const float Y = (Pin - ((PinsInRow - 1) / 2.0f)) * SpaceBetweenPins;
 			const FVector PinPosition = GetActorLocation() + FVector(X, Y, 0.0f);
 
-			ABowlingPin* BowlingPin = Cast<ABowlingPin>(World->SpawnActor<AActor>(BowlingPinClass, PinPosition, FRotator::ZeroRotator));
+			ABowlingPin* BowlingPin = World->SpawnActor<ABowlingPin>(BowlingPinClass, PinPosition, FRotator::ZeroRotator);
 			check(BowlingPin);
 			BowlingPin->SetFlags(RF_Transient);
 			BowlingPins.Add(BowlingPin);

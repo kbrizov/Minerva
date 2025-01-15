@@ -15,6 +15,7 @@ class MINERVA_API ABowlingBall : public AActor
 
 public:
 	ABowlingBall();
+	void Launch();
 
 private:
 	UPROPERTY(EditDefaultsOnly)
@@ -22,4 +23,6 @@ private:
 
 	UPROPERTY(EditDefaultsOnly)
 	UProjectileMovementComponent* MovementComponent;
+
+	void EnableMovement(bool bValue);
 };
