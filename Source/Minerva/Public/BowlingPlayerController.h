@@ -36,6 +36,9 @@ protected:
 	UFUNCTION(BlueprintCallable)
 	void OnThrowBowlingBall(bool bValue);
 
+	UFUNCTION(BlueprintCallable)
+	void OnResetBowlingBall(bool bValue);
+
 private:
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<ABowlingBall> BowlingBallClass;
@@ -48,7 +51,6 @@ private:
 
 	void SpawnBowlingBall();
 	void DespawnBowlingBall();
-	void RestBowlingBallLocation();
 	TObjectPtr<ATargetPoint> FindBowlingBallStartLocation() const;
 
 	UEnhancedInputLocalPlayerSubsystem* GetEnhancedInputSubsystem() const;

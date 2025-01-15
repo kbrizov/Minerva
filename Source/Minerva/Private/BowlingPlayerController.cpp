@@ -66,6 +66,14 @@ void ABowlingPlayerController::OnThrowBowlingBall(bool bValue)
 	BowlingBall->Launch(5000);
 }
 
+void ABowlingPlayerController::OnResetBowlingBall(bool bValue)
+{
+	check(BowlingBall);
+	check(BowlingBallStartLocation);
+	BowlingBall->SetEnableGravity(false);
+	BowlingBall->ResetVelocity();
+	BowlingBall->SetActorLocationAndRotation(BowlingBallStartLocation->GetActorLocation(), BowlingBallStartLocation->GetActorRotation());
+}
 
 void ABowlingPlayerController::SpawnBowlingBall()
 {
@@ -95,13 +103,6 @@ void ABowlingPlayerController::DespawnBowlingBall()
 		BowlingBall->Destroy();
 		BowlingBall = nullptr;
 	}
-}
-
-void ABowlingPlayerController::RestBowlingBallLocation()
-{
-	check(BowlingBall);
-	check(BowlingBallStartLocation);
-	BowlingBall->SetActorLocationAndRotation(BowlingBallStartLocation->GetActorLocation(), BowlingBallStartLocation->GetActorRotation());
 }
 
 TObjectPtr<ATargetPoint> ABowlingPlayerController::FindBowlingBallStartLocation() const

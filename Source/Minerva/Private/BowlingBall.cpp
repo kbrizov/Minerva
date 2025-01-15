@@ -26,3 +26,10 @@ void ABowlingBall::SetEnableGravity(bool bEnableGravity)
 	check(Mesh);
 	Mesh->SetEnableGravity(bEnableGravity);
 }
+
+void ABowlingBall::ResetVelocity()
+{
+	check(Mesh);
+	Mesh->SetPhysicsLinearVelocity(FVector::ZeroVector);
+	Mesh->SetPhysicsAngularVelocityInDegrees(FVector::ZeroVector);
+}

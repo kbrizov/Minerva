@@ -17,6 +17,7 @@ public:
 	ABowlingBall();
 	void Launch(float Force);
 	void SetEnableGravity(bool bEnableGravity);
+	void ResetVelocity();
 
 private:
 	UPROPERTY(EditDefaultsOnly)
