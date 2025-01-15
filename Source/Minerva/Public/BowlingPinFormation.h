@@ -8,6 +8,9 @@
 
 class ABowlingPin;
 
+/**
+ * Represents a typical ten-pin triangle bowling formation.
+ */
 UCLASS(Abstract)
 class MINERVA_API ABowlingPinFormation : public AActor
 {
@@ -15,6 +18,9 @@ class MINERVA_API ABowlingPinFormation : public AActor
 
 public:
 	ABowlingPinFormation();
+
+	uint8 GetDownedPinsCount() const;
+	uint8 GetStandingPinsCount() const;
 
 #if WITH_EDITOR
 	virtual void OnConstruction(const FTransform& Transform) override;

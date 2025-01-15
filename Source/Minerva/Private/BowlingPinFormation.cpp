@@ -2,10 +2,28 @@
 
 #include "BowlingPinFormation.h"
 #include "BowlingPin.h"
+#include "Algo/Count.h"
 
 ABowlingPinFormation::ABowlingPinFormation()
 {
 	PrimaryActorTick.bCanEverTick = false;
+}
+
+uint8 ABowlingPinFormation::GetDownedPinsCount() const
+{
+	const uint32 DownedPinsCount = Algo::CountIf(BowlingPins, [](const ABowlingPin* BowlingPin) -> bool
+	{
+		return BowlingPin && !BowlingPin->IsStanding();
+	});
+
+	return StaticCast<uint8>(DownedPinsCount);
+}
+
+uint8 ABowlingPinFormation::GetStandingPinsCount() const
+{
+	const uint8 DownedPinsCount = GetDownedPinsCount();
+	const uint8 StandingPinsCount = BowlingPins.Num() - DownedPinsCount;
+	return StandingPinsCount;
 }
 
 #if WITH_EDITOR

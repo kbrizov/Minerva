@@ -19,7 +19,7 @@ bool ABowlingPin::IsStanding() const
 {
 	const bool bIsIdle = FMath::IsNearlyZero(GetVelocity().SquaredLength());
 
-	const FVector ActorUpVector = GetActorUpVector();
+	const FVector ActorUpVector = Mesh->GetUpVector();
 	const FVector WorldUpVector = FVector::UpVector;
 	const float DotProduct = FVector::DotProduct(WorldUpVector, ActorUpVector);
 	const bool bSameDirection = FMath::IsNearlyEqual(DotProduct, 1.f);

@@ -2,6 +2,7 @@
 
 #include "BowlingPlayerController.h"
 #include "BowlingBall.h"
+#include "BowlingPinFormation.h"
 #include "EnhancedInputSubsystems.h"
 #include "Engine/TargetPoint.h"
 #include "Kismet/GameplayStatics.h"
@@ -34,12 +35,14 @@ void ABowlingPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 	BowlingBallStartLocation = FindBowlingBallStartLocation();
+	BowlingPinFormation = FindBowlingPinFormation();
 	SpawnBowlingBall();
 }
 
 void ABowlingPlayerController::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
 	DespawnBowlingBall();
+	BowlingPinFormation = nullptr;
 	BowlingBallStartLocation = nullptr;
 	Super::EndPlay(EndPlayReason);
 }
@@ -84,6 +87,11 @@ void ABowlingPlayerController::OnResetBowlingBall(bool bValue)
 	BowlingBall->SetEnableGravity(false);
 	BowlingBall->ResetVelocity();
 	BowlingBall->SetActorLocationAndRotation(BowlingBallStartLocation->GetActorLocation(), BowlingBallStartLocation->GetActorRotation());
+
+	// TODO: Find a more suitable place to broadcast the OnRollCompletedDelegate.
+	check(BowlingPinFormation);
+	const uint32 DownedPins = BowlingPinFormation->GetDownedPinsCount();
+	OnRollCompletedDelegate.Broadcast(DownedPins);
 }
 
 void ABowlingPlayerController::SpawnBowlingBall()
@@ -127,6 +135,19 @@ TObjectPtr<ATargetPoint> ABowlingPlayerController::FindBowlingBallStartLocation(
 	}
 
 	return StaticCast<ATargetPoint*>(OutTargetPoints[0]);
+}
+
+TObjectPtr<ABowlingPinFormation> ABowlingPlayerController::FindBowlingPinFormation() const
+{
+	TArray<AActor*> OutBowlingPinFormations;
+	UGameplayStatics::GetAllActorsOfClass(this, ABowlingPinFormation::StaticClass(), OutBowlingPinFormations);
+
+	if (OutBowlingPinFormations.IsEmpty())
+	{
+		return nullptr;
+	}
+
+	return StaticCast<ABowlingPinFormation*>(OutBowlingPinFormations[0]);
 }
 
 UEnhancedInputLocalPlayerSubsystem* ABowlingPlayerController::GetEnhancedInputSubsystem() const
