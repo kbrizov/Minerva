@@ -1,3 +1,3 @@
 // Christian Rizov's Minerva
 
-#include "MinervaGameMode.h"
+#include "DefaultGameMode.h"
