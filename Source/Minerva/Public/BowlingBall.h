@@ -18,6 +18,8 @@ public:
 	void Launch(float Force);
 	void SetEnableGravity(bool bEnableGravity);
 	void ResetVelocity();
+	bool IsIdle() const;
+	bool IsMoving() const { return !IsIdle(); }
 
 private:
 	UPROPERTY(EditDefaultsOnly)

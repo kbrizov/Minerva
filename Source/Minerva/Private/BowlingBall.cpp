@@ -33,3 +33,9 @@ void ABowlingBall::ResetVelocity()
 	Mesh->SetPhysicsLinearVelocity(FVector::ZeroVector);
 	Mesh->SetPhysicsAngularVelocityInDegrees(FVector::ZeroVector);
 }
+
+bool ABowlingBall::IsIdle() const
+{
+	const bool bIsIdle = FMath::IsNearlyZero(GetVelocity().SquaredLength());
+	return bIsIdle;
+}

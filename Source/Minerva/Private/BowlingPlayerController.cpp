@@ -1,8 +1,8 @@
 // Christian Rizov's Minerva
 
 #include "BowlingPlayerController.h"
-#include "EnhancedInputSubsystems.h"
 #include "BowlingBall.h"
+#include "EnhancedInputSubsystems.h"
 #include "Engine/TargetPoint.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -51,6 +51,11 @@ void ABowlingPlayerController::OnMoveBowlingBall(FVector MovementInput)
 		return;
 	}
 
+	if (BowlingBall->IsMoving())
+	{
+		return;
+	}
+
 	const FVector CurrentLocation = BowlingBall->GetActorLocation();
 	const FVector NewLocation = CurrentLocation + MovementInput;
 	BowlingBall->SetActorLocation(NewLocation);
@@ -63,6 +68,12 @@ void ABowlingPlayerController::OnThrowBowlingBall(bool bValue)
 		return;
 	}
 
+	if (BowlingBall->IsMoving())
+	{
+		return;
+	}
+
+	// TODO: Remove this magic number.
 	BowlingBall->Launch(5000);
 }
 
