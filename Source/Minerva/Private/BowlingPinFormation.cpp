@@ -8,6 +8,20 @@ ABowlingPinFormation::ABowlingPinFormation()
 	PrimaryActorTick.bCanEverTick = false;
 }
 
+#if WITH_EDITOR
+void ABowlingPinFormation::OnConstruction(const FTransform& Transform)
+{
+	Super::OnConstruction(Transform);
+	SpawnBowlingPins();
+}
+
+void ABowlingPinFormation::Destroyed()
+{
+	DespawnBowlingPins();
+	Super::Destroyed();
+}
+#endif
+
 void ABowlingPinFormation::BeginPlay()
 {
 	Super::BeginPlay();
@@ -27,8 +41,12 @@ void ABowlingPinFormation::SpawnBowlingPins()
 		return;
 	}
 
+	if (!BowlingPins.IsEmpty())
+	{
+		DespawnBowlingPins();
+	}
+
 	UWorld* World = GetWorld();
-	constexpr float SpaceBetweenPins = 30.48; // The standard space between pins in cm.
 	constexpr int Rows = 4;
 
 	for (int32 Row = 0; Row < Rows; ++Row)
@@ -43,6 +61,7 @@ void ABowlingPinFormation::SpawnBowlingPins()
 
 			ABowlingPin* BowlingPin = Cast<ABowlingPin>(World->SpawnActor<AActor>(BowlingPinClass, PinPosition, FRotator::ZeroRotator));
 			check(BowlingPin);
+			BowlingPin->SetFlags(RF_Transient);
 			BowlingPins.Add(BowlingPin);
 		}
 	}
@@ -55,4 +74,6 @@ void ABowlingPinFormation::DespawnBowlingPins()
 		check(BowlingPin);
 		BowlingPin->Destroy();
 	}
+
+	BowlingPins.Empty();
 }

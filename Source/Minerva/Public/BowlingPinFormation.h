@@ -16,6 +16,11 @@ class MINERVA_API ABowlingPinFormation : public AActor
 public:
 	ABowlingPinFormation();
 
+#if WITH_EDITOR
+	virtual void OnConstruction(const FTransform& Transform) override;
+	virtual void Destroyed() override;
+#endif
+
 protected:
 	virtual void BeginPlay() override;
 	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
@@ -25,6 +30,9 @@ private:
 
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<AActor> BowlingPinClass;
+
+	UPROPERTY(EditDefaultsOnly)
+	float SpaceBetweenPins = 30.48; // The standard space between pins in cm.
 
 	void SpawnBowlingPins();
 	void DespawnBowlingPins();
