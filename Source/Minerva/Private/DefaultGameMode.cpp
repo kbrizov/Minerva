@@ -1,6 +1,8 @@
 // Christian Rizov's Minerva
 
 #include "DefaultGameMode.h"
+
+#include "BowlingPinFormation.h"
 #include "BowlingPlayerController.h"
 
 void ADefaultGameMode::BeginPlay()
@@ -45,7 +47,7 @@ void ADefaultGameMode::OnRollCompleted(uint32 DownedPins)
 		int32 PlayerScore = CalculateScore();
 		UKismetSystemLibrary::PrintString(
 			this,
-			FString::Printf(TEXT("FINAL SCORE: %d !!!"), DownedPins),
+			FString::Printf(TEXT("FINAL SCORE: %d !!!"), PlayerScore),
 			true,
 			false,
 			FLinearColor::Yellow,
@@ -129,4 +131,12 @@ void ADefaultGameMode::AdvanceFrame()
 {
 	CurrentFrame++;
 	CurrentRoll = 1;
+
+	// TODO: Find a more suitable place to reset the bowling pins.
+	const ABowlingPlayerController* PlayerController = GetPlayerController<ABowlingPlayerController>();
+	check(PlayerController);
+
+	ABowlingPinFormation* BowlingPinFormation = PlayerController->GetBowlingPinFormation();
+	check(BowlingPinFormation);
+	BowlingPinFormation->ResetPins();
 }

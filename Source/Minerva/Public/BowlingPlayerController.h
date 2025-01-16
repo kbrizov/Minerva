@@ -32,6 +32,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Input")
 	virtual void ClearAllInputMappingContexts();
 
+	TObjectPtr<ABowlingBall> GetBowlingBall() const { return BowlingBall; }
+	TObjectPtr<ABowlingPinFormation> GetBowlingPinFormation() const { return BowlingPinFormation; }
+
 protected:
 	virtual void BeginPlay() override;
 	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;

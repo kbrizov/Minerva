@@ -26,6 +26,12 @@ uint8 ABowlingPinFormation::GetStandingPinsCount() const
 	return StandingPinsCount;
 }
 
+void ABowlingPinFormation::ResetPins()
+{
+	DespawnBowlingPins();
+	SpawnBowlingPins();
+}
+
 #if WITH_EDITOR
 void ABowlingPinFormation::OnConstruction(const FTransform& Transform)
 {
