@@ -9,16 +9,16 @@
 UCLASS(Abstract)
 class MINERVA_API ABowlingPin : public AActor
 {
-	GENERATED_BODY()
+    GENERATED_BODY()
 
 public:
-	ABowlingPin();
-	bool IsStanding() const;
+    ABowlingPin();
+    bool IsStanding() const;
 
 private:
-	UPROPERTY(EditDefaultsOnly)
-	TObjectPtr<USceneComponent> Pivot;
+    UPROPERTY(EditDefaultsOnly)
+    TObjectPtr<USceneComponent> Pivot;
 
-	UPROPERTY(EditDefaultsOnly)
-	TObjectPtr<UStaticMeshComponent> Mesh;
+    UPROPERTY(EditDefaultsOnly)
+    TObjectPtr<UStaticMeshComponent> Mesh;
 };

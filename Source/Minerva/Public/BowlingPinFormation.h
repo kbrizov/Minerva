@@ -14,34 +14,34 @@ class ABowlingPin;
 UCLASS(Abstract)
 class MINERVA_API ABowlingPinFormation : public AActor
 {
-	GENERATED_BODY()
+    GENERATED_BODY()
 
 public:
-	ABowlingPinFormation();
+    ABowlingPinFormation();
 
-	uint8 GetDownedPinsCount() const;
-	uint8 GetStandingPinsCount() const;
+    uint8 GetDownedPinsCount() const;
+    uint8 GetStandingPinsCount() const;
 
-	void ResetPins();
+    void ResetPins();
 
 #if WITH_EDITOR
-	virtual void OnConstruction(const FTransform& Transform) override;
-	virtual void Destroyed() override;
+    virtual void OnConstruction(const FTransform& Transform) override;
+    virtual void Destroyed() override;
 #endif
 
 protected:
-	virtual void BeginPlay() override;
-	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
+    virtual void BeginPlay() override;
+    virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 
 private:
-	TArray<TObjectPtr<ABowlingPin>> BowlingPins;
+    TArray<TObjectPtr<ABowlingPin>> BowlingPins;
 
-	UPROPERTY(EditDefaultsOnly)
-	TSubclassOf<AActor> BowlingPinClass;
+    UPROPERTY(EditDefaultsOnly)
+    TSubclassOf<AActor> BowlingPinClass;
 
-	UPROPERTY(EditDefaultsOnly)
-	float SpaceBetweenPins = 30.48; // The standard space between pins in cm.
+    UPROPERTY(EditDefaultsOnly)
+    float SpaceBetweenPins = 30.48; // The standard space between pins in cm.
 
-	void SpawnBowlingPins();
-	void DespawnBowlingPins();
+    void SpawnBowlingPins();
+    void DespawnBowlingPins();
 };

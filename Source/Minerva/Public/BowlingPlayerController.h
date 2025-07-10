@@ -18,54 +18,54 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FRollCompletedDelegate, uint32, Down
 UCLASS(Abstract)
 class MINERVA_API ABowlingPlayerController : public APlayerController
 {
-	GENERATED_BODY()
+    GENERATED_BODY()
 
 public:
-	FRollCompletedDelegate OnRollCompletedDelegate;
+    FRollCompletedDelegate OnRollCompletedDelegate;
 
-	UFUNCTION(BlueprintCallable, Category = "Input", meta = (AutoCreateRefTerm = "Options"))
-	virtual void AddInputMappingContext(const UInputMappingContext* MappingContext, int32 Priority, const FModifyContextOptions& Options = FModifyContextOptions());
+    UFUNCTION(BlueprintCallable, Category = "Input", meta = (AutoCreateRefTerm = "Options"))
+    virtual void AddInputMappingContext(const UInputMappingContext* MappingContext, int32 Priority, const FModifyContextOptions& Options = FModifyContextOptions());
 
-	UFUNCTION(BlueprintCallable, Category = "Input", meta = (AutoCreateRefTerm = "Options"))
-	virtual void RemoveInputMappingContext(const UInputMappingContext* MappingContext, const FModifyContextOptions& Options = FModifyContextOptions());
+    UFUNCTION(BlueprintCallable, Category = "Input", meta = (AutoCreateRefTerm = "Options"))
+    virtual void RemoveInputMappingContext(const UInputMappingContext* MappingContext, const FModifyContextOptions& Options = FModifyContextOptions());
 
-	UFUNCTION(BlueprintCallable, Category = "Input")
-	virtual void ClearAllInputMappingContexts();
+    UFUNCTION(BlueprintCallable, Category = "Input")
+    virtual void ClearAllInputMappingContexts();
 
-	TObjectPtr<ABowlingBall> GetBowlingBall() const { return BowlingBall; }
-	TObjectPtr<ABowlingPinFormation> GetBowlingPinFormation() const { return BowlingPinFormation; }
+    TObjectPtr<ABowlingBall> GetBowlingBall() const { return BowlingBall; }
+    TObjectPtr<ABowlingPinFormation> GetBowlingPinFormation() const { return BowlingPinFormation; }
 
 protected:
-	virtual void BeginPlay() override;
-	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
+    virtual void BeginPlay() override;
+    virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 
-	UFUNCTION(BlueprintCallable)
-	void OnMoveBowlingBall(FVector MovementInput);
+    UFUNCTION(BlueprintCallable)
+    void OnMoveBowlingBall(FVector MovementInput);
 
-	UFUNCTION(BlueprintCallable)
-	void OnThrowBowlingBall(bool bValue);
+    UFUNCTION(BlueprintCallable)
+    void OnThrowBowlingBall(bool bValue);
 
-	UFUNCTION(BlueprintCallable)
-	void OnResetBowlingBall(bool bValue);
+    UFUNCTION(BlueprintCallable)
+    void OnResetBowlingBall(bool bValue);
 
 private:
-	UPROPERTY(EditDefaultsOnly)
-	TSubclassOf<ABowlingBall> BowlingBallClass;
+    UPROPERTY(EditDefaultsOnly)
+    TSubclassOf<ABowlingBall> BowlingBallClass;
 
-	UPROPERTY()
-	TObjectPtr<ABowlingBall> BowlingBall;
+    UPROPERTY()
+    TObjectPtr<ABowlingBall> BowlingBall;
 
-	UPROPERTY()
-	TObjectPtr<ATargetPoint> BowlingBallStartLocation;
+    UPROPERTY()
+    TObjectPtr<ATargetPoint> BowlingBallStartLocation;
 
-	UPROPERTY()
-	TObjectPtr<ABowlingPinFormation> BowlingPinFormation;
+    UPROPERTY()
+    TObjectPtr<ABowlingPinFormation> BowlingPinFormation;
 
-	void SpawnBowlingBall();
-	void DespawnBowlingBall();
+    void SpawnBowlingBall();
+    void DespawnBowlingBall();
 
-	TObjectPtr<ATargetPoint> FindBowlingBallStartLocation() const;
-	TObjectPtr<ABowlingPinFormation> FindBowlingPinFormation() const;
+    TObjectPtr<ATargetPoint> FindBowlingBallStartLocation() const;
+    TObjectPtr<ABowlingPinFormation> FindBowlingPinFormation() const;
 
-	UEnhancedInputLocalPlayerSubsystem* GetEnhancedInputSubsystem() const;
+    UEnhancedInputLocalPlayerSubsystem* GetEnhancedInputSubsystem() const;
 };

@@ -4,23 +4,23 @@
 
 ABowlingPin::ABowlingPin()
 {
-	PrimaryActorTick.bCanEverTick = false;
+    PrimaryActorTick.bCanEverTick = false;
 
-	Pivot = CreateDefaultSubobject<USceneComponent>("Pivot");
-	check(Pivot);
-	RootComponent = Pivot;
+    Pivot = CreateDefaultSubobject<USceneComponent>("Pivot");
+    check(Pivot);
+    RootComponent = Pivot;
 
-	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
-	check(Mesh);
-	Mesh->SetupAttachment(Pivot);
+    Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
+    check(Mesh);
+    Mesh->SetupAttachment(Pivot);
 }
 
 bool ABowlingPin::IsStanding() const
 {
-	const FVector ActorUpVector = Mesh->GetUpVector();
-	const FVector WorldUpVector = FVector::UpVector;
-	const float DotProduct = FVector::DotProduct(WorldUpVector, ActorUpVector);
-	const bool bIsStanding = FMath::IsNearlyEqual(DotProduct, 1.f, 0.2f);
+    const FVector ActorUpVector = Mesh->GetUpVector();
+    const FVector WorldUpVector = FVector::UpVector;
+    const float DotProduct = FVector::DotProduct(WorldUpVector, ActorUpVector);
+    const bool bIsStanding = FMath::IsNearlyEqual(DotProduct, 1.f, 0.2f);
 
-	return bIsStanding;
+    return bIsStanding;
 }
