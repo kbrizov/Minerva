@@ -1,4 +1,4 @@
-// Christian Rizov's Minerva
+// Christian Rizov's Minerva.
 
 #include "DefaultGameMode.h"
 
