@@ -13,7 +13,8 @@ uint8 ABowlingPinFormation::GetDownedPinsCount() const
 {
     const uint32 DownedPinsCount = Algo::CountIf(BowlingPins, [](const ABowlingPin* BowlingPin) -> bool
     {
-        return BowlingPin && !BowlingPin->IsStanding();
+        check(IsValid(BowlingPin));
+        return !BowlingPin->IsStanding();
     });
 
     return StaticCast<uint8>(DownedPinsCount);
@@ -95,8 +96,10 @@ void ABowlingPinFormation::DespawnBowlingPins()
 {
     for (ABowlingPin* BowlingPin : BowlingPins)
     {
-        check(BowlingPin);
-        BowlingPin->Destroy();
+        if (IsValid(BowlingPin))
+        {
+            BowlingPin->Destroy();
+        }
     }
 
     BowlingPins.Empty();
