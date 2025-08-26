@@ -9,26 +9,23 @@
 
 void ABowlingPlayerController::AddInputMappingContext(const UInputMappingContext* MappingContext, int32 Priority, const FModifyContextOptions& Options)
 {
-    if (IEnhancedInputSubsystemInterface* Subsystem = GetEnhancedInputSubsystem())
-    {
-        Subsystem->AddMappingContext(MappingContext, Priority, Options);
-    }
+    IEnhancedInputSubsystemInterface* Subsystem = GetEnhancedInputSubsystem();
+    check(Subsystem);
+    Subsystem->AddMappingContext(MappingContext, Priority, Options);
 }
 
 void ABowlingPlayerController::RemoveInputMappingContext(const UInputMappingContext* MappingContext, const FModifyContextOptions& Options)
 {
-    if (IEnhancedInputSubsystemInterface* Subsystem = GetEnhancedInputSubsystem())
-    {
-        Subsystem->RemoveMappingContext(MappingContext, Options);
-    }
+    IEnhancedInputSubsystemInterface* Subsystem = GetEnhancedInputSubsystem();
+    check(Subsystem);
+    Subsystem->RemoveMappingContext(MappingContext, Options);
 }
 
 void ABowlingPlayerController::ClearAllInputMappingContexts()
 {
-    if (IEnhancedInputSubsystemInterface* Subsystem = GetEnhancedInputSubsystem())
-    {
-        Subsystem->ClearAllMappings();
-    }
+    IEnhancedInputSubsystemInterface* Subsystem = GetEnhancedInputSubsystem();
+    check(Subsystem);
+    Subsystem->ClearAllMappings();
 }
 
 void ABowlingPlayerController::BeginPlay()
@@ -124,7 +121,7 @@ void ABowlingPlayerController::DespawnBowlingBall()
     }
 }
 
-TObjectPtr<ATargetPoint> ABowlingPlayerController::FindBowlingBallStartLocation() const
+ATargetPoint* ABowlingPlayerController::FindBowlingBallStartLocation() const
 {
     TArray<AActor*> OutTargetPoints;
     UGameplayStatics::GetAllActorsOfClass(this, ATargetPoint::StaticClass(), OutTargetPoints);
@@ -137,7 +134,7 @@ TObjectPtr<ATargetPoint> ABowlingPlayerController::FindBowlingBallStartLocation(
     return StaticCast<ATargetPoint*>(OutTargetPoints[0]);
 }
 
-TObjectPtr<ABowlingPinFormation> ABowlingPlayerController::FindBowlingPinFormation() const
+ABowlingPinFormation* ABowlingPlayerController::FindBowlingPinFormation() const
 {
     TArray<AActor*> OutBowlingPinFormations;
     UGameplayStatics::GetAllActorsOfClass(this, ABowlingPinFormation::StaticClass(), OutBowlingPinFormations);

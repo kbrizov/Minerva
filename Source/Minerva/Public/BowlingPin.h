@@ -13,12 +13,13 @@ class MINERVA_API ABowlingPin : public AActor
 
 public:
     ABowlingPin();
+    
     bool IsStanding() const;
 
 private:
-    UPROPERTY(EditDefaultsOnly)
+    UPROPERTY(VisibleDefaultsOnly)
     TObjectPtr<USceneComponent> Pivot;
 
-    UPROPERTY(EditDefaultsOnly)
+    UPROPERTY(VisibleDefaultsOnly)
     TObjectPtr<UStaticMeshComponent> Mesh;
 };

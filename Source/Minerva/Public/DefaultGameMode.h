@@ -18,7 +18,7 @@ protected:
 
 private:
     static constexpr int32 TotalFrames = 10;
-    static constexpr int32 MaxRolls = 21; // Maximum rolls in a game, including bonus rolls
+    static constexpr int32 MaxRolls = 21; // Maximum rolls in a game, including bonus rolls.
     static constexpr int32 MaxPins = 10;
 
     int32 CurrentFrame = 1;

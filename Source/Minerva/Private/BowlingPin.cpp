@@ -6,12 +6,10 @@ ABowlingPin::ABowlingPin()
 {
     PrimaryActorTick.bCanEverTick = false;
 
-    Pivot = CreateDefaultSubobject<USceneComponent>("Pivot");
-    check(Pivot);
+    Pivot = CreateDefaultSubobject<USceneComponent>(TEXT("Pivot"));
     RootComponent = Pivot;
 
     Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
-    check(Mesh);
     Mesh->SetupAttachment(Pivot);
 }
 

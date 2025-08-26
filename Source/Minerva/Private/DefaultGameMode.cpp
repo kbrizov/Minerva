@@ -1,7 +1,6 @@
 // Christian Rizov's Minerva.
 
 #include "DefaultGameMode.h"
-
 #include "BowlingPinFormation.h"
 #include "BowlingPlayerController.h"
 
@@ -44,7 +43,7 @@ void ADefaultGameMode::OnRollCompleted(uint32 DownedPins)
     const bool bShouldEndGame = CurrentFrame > TotalFrames;
     if (bShouldEndGame)
     {
-        int32 PlayerScore = CalculateScore();
+        const int32 PlayerScore = CalculateScore();
         UKismetSystemLibrary::PrintString(
             this,
             FString::Printf(TEXT("FINAL SCORE: %d !!!"), PlayerScore),
@@ -123,7 +122,7 @@ void ADefaultGameMode::HandleTenthFrame(int32 DownedPins)
     }
     else
     {
-        CurrentRoll++; // Move to the second roll
+        CurrentRoll++; // Move to the second roll.
     }
 }
 
@@ -138,5 +137,6 @@ void ADefaultGameMode::AdvanceFrame()
 
     ABowlingPinFormation* BowlingPinFormation = PlayerController->GetBowlingPinFormation();
     check(BowlingPinFormation);
+    
     BowlingPinFormation->ResetPins();
 }

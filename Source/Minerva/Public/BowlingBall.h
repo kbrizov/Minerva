@@ -6,8 +6,6 @@
 #include "GameFramework/Actor.h"
 #include "BowlingBall.generated.h"
 
-class UProjectileMovementComponent;
-
 UCLASS(Abstract)
 class MINERVA_API ABowlingBall : public AActor
 {
@@ -15,13 +13,18 @@ class MINERVA_API ABowlingBall : public AActor
 
 public:
     ABowlingBall();
+    
     void Launch(float Force);
+    
     void SetEnableGravity(bool bEnableGravity);
+    
     void ResetVelocity();
+    
     bool IsIdle() const;
+    
     bool IsMoving() const { return !IsIdle(); }
 
 private:
-    UPROPERTY(EditDefaultsOnly)
+    UPROPERTY(VisibleDefaultsOnly)
     TObjectPtr<UStaticMeshComponent> Mesh;
 };

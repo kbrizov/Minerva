@@ -32,8 +32,8 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Input")
     virtual void ClearAllInputMappingContexts();
 
-    TObjectPtr<ABowlingBall> GetBowlingBall() const { return BowlingBall; }
-    TObjectPtr<ABowlingPinFormation> GetBowlingPinFormation() const { return BowlingPinFormation; }
+    ABowlingBall* GetBowlingBall() const { return BowlingBall; }
+    ABowlingPinFormation* GetBowlingPinFormation() const { return BowlingPinFormation; }
 
 protected:
     virtual void BeginPlay() override;
@@ -52,20 +52,20 @@ private:
     UPROPERTY(EditDefaultsOnly)
     TSubclassOf<ABowlingBall> BowlingBallClass;
 
-    UPROPERTY()
+    UPROPERTY(Transient)
     TObjectPtr<ABowlingBall> BowlingBall;
 
-    UPROPERTY()
+    UPROPERTY(Transient)
     TObjectPtr<ATargetPoint> BowlingBallStartLocation;
 
-    UPROPERTY()
+    UPROPERTY(Transient)
     TObjectPtr<ABowlingPinFormation> BowlingPinFormation;
 
     void SpawnBowlingBall();
     void DespawnBowlingBall();
 
-    TObjectPtr<ATargetPoint> FindBowlingBallStartLocation() const;
-    TObjectPtr<ABowlingPinFormation> FindBowlingPinFormation() const;
+    ATargetPoint* FindBowlingBallStartLocation() const;
+    ABowlingPinFormation* FindBowlingPinFormation() const;
 
     UEnhancedInputLocalPlayerSubsystem* GetEnhancedInputSubsystem() const;
 };
